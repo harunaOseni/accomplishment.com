@@ -1,8 +1,14 @@
 import React from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { Header, Post } from "./components";
+import db from "./firebase";
 
 function App() {
+  useEffect(()=>{
+    db.collection("posts")
+  })
+
   return (
     <div className="app">
       <Header />

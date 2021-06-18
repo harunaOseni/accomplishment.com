@@ -81,6 +81,8 @@ function Header() {
     });
 
     handleCloseSignIn();
+    setEmail("");
+    setPassword("");
   }
 
   function handleUsersProfilePicture(event) {
@@ -131,16 +133,17 @@ function Header() {
       <div className="app__logo">
         <h1>Accomplishment.com</h1>
       </div>
-      <div className="add__postButton">
-        <IconButton>
-          <AddAPhotoIcon />
-        </IconButton>
-      </div>
-
       {currentlySignedInUser ? (
-        <div className="register__button" onClick={handleSignOut}>
-          LOG OUT
-        </div>
+        <>
+          <div className="add__postButton">
+            <IconButton>
+              <AddAPhotoIcon />
+            </IconButton>
+          </div>
+          <div className="register__button" onClick={handleSignOut}>
+            LOG OUT
+          </div>
+        </>
       ) : (
         <div className="register__button">
           <Button type="submit" onClick={handleOpenSignIn}>
@@ -157,7 +160,7 @@ function Header() {
             <h1 className="logo__signupForm">Accomplishment.com</h1>
             <Input
               type="text"
-              placeholder="Enter an Image Url"
+              placeholder="Enter your profile picture imageUrl"
               value={profilePicture}
               onChange={handleUsersProfilePicture}
             />
@@ -187,9 +190,19 @@ function Header() {
         <div style={modalStyle} className={classes.paper}>
           <form className="signin__form">
             <h1 className="logo__signupForm">Accomplishment.com</h1>
-            <Input placeholder="Enter your email" />
-            <Input placeholder="Enter your password" />
-            <Button>Sign In</Button>
+            <Input
+              placeholder="Enter your email"
+              value={email}
+              onChange={handleUsersEmail}
+            />
+            <Input
+              placeholder="Enter your password"
+              value={password}
+              onChange={handleUsersPassword}
+            />
+            <Button type="submit" onClick={handleSignIn}>
+              Sign In
+            </Button>
           </form>
         </div>
       </Modal>
