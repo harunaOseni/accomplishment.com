@@ -4,6 +4,8 @@ import { IconButton, Button, Input } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
+import { auth, db } from "../../firebase";
+import { useEffect } from "react";
 
 function getModalStyle() {
   const top = 50;
@@ -35,8 +37,55 @@ function Header() {
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [profilePicture, setProfilePicture] = useState("");
+  const [currentlySignedInUser, setCurrentlySignedInUser] = useState(null);
 
-  function handleSignUp() {} //triggers when sign up button is clicked
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setCurrentlySignedInUser(authUser);
+        console.log(authUser);
+      } else {
+        setCurrentlySignedInUser(null);
+      }
+    });
+  });
+
+  function handleSignUp(event) {
+    //Signs in user and updates authenticated user display name with
+    // user generated name
+    event.preventDefault();
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        return authUser.user.updateProfile({
+          displayName: username,
+          PhotoUrl: profilePicture,
+        });
+      })
+      .catch((error) => alert(error.message));
+
+    //Close Modal
+    handleClose();
+    setEmail("");
+    setPassword("");
+    setUsername("");
+    setProfilePicture("");
+  }
+
+  function handleSignIn(event) {
+    event.preventDefault();
+
+    auth.signInWithEmailAndPassword(email, password).catch((error) => {
+      alert(`we have an error, ${error}`);
+    });
+
+    handleCloseSignIn();
+  }
+
+  function handleUsersProfilePicture(event) {
+    setProfilePicture(event.target.value);
+  }
 
   function handleClose() {
     setOpen(false); //close modal
@@ -66,6 +115,17 @@ function Header() {
     setPassword(event.target.value);
   }
 
+  function handleSignOut() {
+    auth
+      .signOut()
+      .then(() => {
+        alert("Sign out succesfull");
+      })
+      .catch((error) => {
+        alert(`There was an error loggin out ${error}`);
+      });
+  }
+
   return (
     <div className="header">
       <div className="app__logo">
@@ -76,18 +136,31 @@ function Header() {
           <AddAPhotoIcon />
         </IconButton>
       </div>
-      <div className="register__button">
-        <Button type="submit" onClick={handleOpenSignIn}>
-          Sign In
-        </Button>
-        <Button type="submit" onClick={handleOpen}>
-          Sign Up
-        </Button>
-      </div>
+
+      {currentlySignedInUser ? (
+        <div className="register__button" onClick={handleSignOut}>
+          LOG OUT
+        </div>
+      ) : (
+        <div className="register__button">
+          <Button type="submit" onClick={handleOpenSignIn}>
+            Sign In
+          </Button>
+          <Button type="submit" onClick={handleOpen}>
+            Sign Up
+          </Button>
+        </div>
+      )}
       <Modal open={open} onClose={handleClose}>
         <div style={modalStyle} className={classes.paper}>
           <form className="signup__form ">
             <h1 className="logo__signupForm">Accomplishment.com</h1>
+            <Input
+              type="text"
+              placeholder="Enter an Image Url"
+              value={profilePicture}
+              onChange={handleUsersProfilePicture}
+            />
             <Input
               type="text"
               placeholder="Enter your username"
