@@ -1,31 +1,41 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import "./App.css";
 import { Header, Post } from "./components";
-import db from "./firebase";
+import { db } from "./firebase";
 
 function App() {
-  useEffect(()=>{
+  const [posts, setPost] = useState([]);
+  useEffect(() => {
+    //listen for any changes to the posts collection in the firestore database and
+    //update app state ==> "posts" with the modified post id and data (caption, image etc...)
     db.collection("posts")
-  })
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setPost(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+      });
+  }, []);
+
+  console.log(posts);
 
   return (
     <div className="app">
       <Header />
       <div className="app__body">
-        <Post
-          profilePicture="https://avatars.githubusercontent.com/u/61633659?v=4"
-          username="they_call_me_noob"
-          caption="I will make a great application like instagram someday!"
-          post="https://firebasestorage.googleapis.com/v0/b/instagram-app-reactjs.appspot.com/o/images%2F5e9dcd4215ea4b57a81e3704.jfif?alt=media&token=4df7ab29-9b6b-409a-997d-802787eb3994"
-        />
-
-        <Post
-          profilePicture="https://avatars.githubusercontent.com/u/61633659?v=4"
-          username="they_call_me_noob"
-          caption="I will have a clique such as this soon!"
-          post="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz7Lzhnp_vw4k3qCGVi8S_DToDfIHuuSBsmA&usqp=CAU"
-        />
+        {posts.map((post) => (
+          <Post
+            profilePicture={post.data.profilePicture}
+            caption={post.data.caption}
+            post={post.data.post}
+            username={post.data.username}
+          />
+        ))}
       </div>
     </div>
   );

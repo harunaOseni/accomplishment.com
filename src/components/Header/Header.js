@@ -6,6 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { auth, db } from "../../firebase";
 import { useEffect } from "react";
+import { PostUploader } from "../../components";
 
 function getModalStyle() {
   const top = 50;
@@ -39,6 +40,7 @@ function Header() {
   const [openSignIn, setOpenSignIn] = useState(false);
   const [profilePicture, setProfilePicture] = useState("");
   const [currentlySignedInUser, setCurrentlySignedInUser] = useState(null);
+  const [openUploader, setOpenUploader] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -51,6 +53,14 @@ function Header() {
     });
   });
 
+  function handleOpenUploaderModal() {
+    setOpenUploader(true);
+  }
+
+  function handleCloseUploaderModal() {
+    setOpenUploader(false);
+  }
+
   function handleSignUp(event) {
     //Signs in user and updates authenticated user display name with
     // user generated name
@@ -60,7 +70,7 @@ function Header() {
       .then((authUser) => {
         return authUser.user.updateProfile({
           displayName: username,
-          PhotoUrl: profilePicture,
+          photoURL: profilePicture,
         });
       })
       .catch((error) => alert(error.message));
@@ -136,7 +146,7 @@ function Header() {
       {currentlySignedInUser ? (
         <>
           <div className="add__postButton">
-            <IconButton>
+            <IconButton onClick={handleOpenUploaderModal}>
               <AddAPhotoIcon />
             </IconButton>
           </div>
@@ -205,6 +215,9 @@ function Header() {
             </Button>
           </form>
         </div>
+      </Modal>
+      <Modal open={openUploader} onClose={handleCloseUploaderModal}>
+        <PostUploader currentlySignedInUser={currentlySignedInUser} />
       </Modal>
     </div>
   );
