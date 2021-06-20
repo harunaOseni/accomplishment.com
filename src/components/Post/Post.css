@@ -1,25 +1,45 @@
 .post {
-    max-width: 500px;
-    border: 1px solid #9C3D54;
-    background-color: #E2703A;
-    margin-bottom: 20px;
+  max-width: 500px;
+  border: 1px solid #9c3d54;
+  background-color: #e2703a;
+  margin-bottom: 20px;
 }
 
 .post__image > img {
-    width: 100%;
-    object-fit: contain;
+  width: 100%;
+  object-fit: contain;
 }
 
 .post__top {
-    display: flex;
-    align-items: center;
-    padding: 10px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 .post__top > h4 {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .post__caption {
-    padding: 20px;
+  padding: 20px;
+}
+
+.comment__section {
+  padding: 20px;
+}
+
+.comment__postSection {
+  display: flex;
+}
+
+.comment__input {
+  flex: 1;
+  outline-width: 0;
+  border: none;
+  padding: 10px;
+}
+
+.comment__button {
+    border: none;
+    color: #E2703A;
 }

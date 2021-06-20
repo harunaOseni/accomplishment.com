@@ -30,6 +30,8 @@ function App() {
       <div className="app__body">
         {posts.map((post) => (
           <Post
+          key={post.id}
+          postId={post.id}
             profilePicture={post.data.profilePicture}
             caption={post.data.caption}
             post={post.data.post}

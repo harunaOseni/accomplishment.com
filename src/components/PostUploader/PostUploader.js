@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PostUploader({ currentlySignedInUser }) {
+function PostUploader({ currentlySignedInUser, closeUploaderModal }) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [image, setImage] = useState(null);
@@ -80,9 +80,9 @@ function PostUploader({ currentlySignedInUser }) {
     );
 
     setProgress(0);
-    setCaption(""); 
-    setImage(null)
-    
+    setCaption("");
+    setImage(null);
+    closeUploaderModal();
   }
 
   return (

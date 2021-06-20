@@ -217,7 +217,10 @@ function Header() {
         </div>
       </Modal>
       <Modal open={openUploader} onClose={handleCloseUploaderModal}>
-        <PostUploader currentlySignedInUser={currentlySignedInUser} />
+        <PostUploader
+          currentlySignedInUser={currentlySignedInUser}
+          closeUploaderModal={handleCloseUploaderModal}
+        />
       </Modal>
     </div>
   );
