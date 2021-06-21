@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import "./App.css";
-import { Header, Post } from "./components";
+import { Header, Post, Widget } from "./components";
 import { db } from "./firebase";
 
 function App() {
@@ -28,16 +28,19 @@ function App() {
     <div className="app">
       <Header />
       <div className="app__body">
-        {posts.map((post) => (
-          <Post
-          key={post.id}
-          postId={post.id}
-            profilePicture={post.data.profilePicture}
-            caption={post.data.caption}
-            post={post.data.post}
-            username={post.data.username}
-          />
-        ))}
+        <div className="post__section">
+          {posts.map((post) => (
+            <Post
+              key={post.id}
+              postId={post.id}
+              profilePicture={post.data.profilePicture}
+              caption={post.data.caption}
+              post={post.data.post}
+              username={post.data.username}
+            />
+          ))}
+        </div>
+        <Widget />
       </div>
     </div>
   );

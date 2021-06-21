@@ -17,6 +17,7 @@
 .register__button {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 
 .signup__form {

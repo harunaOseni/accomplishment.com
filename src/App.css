@@ -4,4 +4,6 @@
 
 .app__body {
     padding: 20px;
+    display: flex;
+    justify-content: center;    
 }

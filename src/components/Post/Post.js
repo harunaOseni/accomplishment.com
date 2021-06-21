@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "./Post.css";
 import { auth, db } from "../../firebase";
-import { IconButton } from "@material-ui/core";
-import StarsIcon from '@material-ui/icons/Stars';
 
 function Post({ profilePicture, username, caption, post, postId }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState();
   const [currentlySignedInUser, setCurrentlySignedInUser] = useState(null);
-  const [support, setSupport] = useState(0);
-  const [supports, setSupports] = useState([]);
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -41,15 +37,6 @@ function Post({ profilePicture, username, caption, post, postId }) {
     };
   }, [postId]);
 
-  useEffect(() => {
-    db.collection("posts")
-      .doc(postId)
-      .collection("comments")
-      .onSnapshot((snapshot) => {
-        setSupports(snapshot.docs.map((doc) => doc.data()));
-      });
-  });
-
   function handleComment(event) {
     setComment(event.target.value);
   }
@@ -74,14 +61,6 @@ function Post({ profilePicture, username, caption, post, postId }) {
 
       <div className="post__image">
         <img src={post} alt="" />
-      </div>
-
-      <div className="support__postSection">
-        {currentlySignedInUser && (
-          <IconButton onClick={handleSupportAction}> 
-            <StarsIcon /> 
-          </IconButton>
-        )}
       </div>
 
       <div className="post__caption">

@@ -3,6 +3,7 @@
   border: 1px solid #9c3d54;
   background-color: #e2703a;
   margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .post__image > img {
@@ -40,6 +41,6 @@
 }
 
 .comment__button {
-    border: none;
-    color: #E2703A;
+  border: none;
+  color: #e2703a;
 }
