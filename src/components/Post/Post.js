@@ -2,11 +2,17 @@ import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "./Post.css";
 import { auth, db } from "../../firebase";
+import firebase from "firebase";
 
 function Post({ profilePicture, username, caption, post, postId }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState();
   const [currentlySignedInUser, setCurrentlySignedInUser] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  function handleToggleComment() {
+    !open ? setOpen(true) : setOpen(false);
+  }
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -27,6 +33,7 @@ function Post({ profilePicture, username, caption, post, postId }) {
         .collection("posts")
         .doc(postId)
         .collection("comments")
+        .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) => {
           setComments(snapshot.docs.map((doc) => doc.data()));
         });
@@ -47,6 +54,7 @@ function Post({ profilePicture, username, caption, post, postId }) {
     db.collection("posts").doc(postId).collection("comments").add({
       comment: comment,
       username: currentlySignedInUser.displayName,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
     setComment("");
@@ -70,12 +78,37 @@ function Post({ profilePicture, username, caption, post, postId }) {
         </p>
       </div>
 
-      <div className="comment__section">
-        {comments.map((comment) => (
-          <p>
-            <strong>{comment.username} </strong> {comment.comment}
-          </p>
-        ))}
+      <div className="comment__container">
+        {
+          open ? 
+          (
+            <button
+          className="commentCollapse__button"
+          onClick={handleToggleComment}
+        >
+          Hide Comments
+        </button>
+          ) : (
+            <button
+          className="commentCollapse__button"
+          onClick={handleToggleComment}
+        >
+         comments
+        </button>
+          )
+        }
+
+        {open ? (
+          <div className="comment__section">
+            {comments.map((comment) => (
+              <p>
+                <strong>{comment.username} </strong> {comment.comment}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <h4>Click the button above to show comment.</h4>
+        )}
       </div>
 
       <form className="comment__postSection">

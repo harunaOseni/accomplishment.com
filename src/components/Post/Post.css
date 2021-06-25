@@ -44,3 +44,9 @@
   border: none;
   color: #e2703a;
 }
+
+.commentCollapse__button {
+  margin-left: 20px;
+  background-color: #e2703a;
+  
+}

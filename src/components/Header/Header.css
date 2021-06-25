@@ -10,7 +10,7 @@
 
 .app__logo {
     flex: 1;
-    font-family: billabong;
+    font-family: "billabong";
     font-size: large;
 }
 
@@ -27,7 +27,7 @@
 
 .logo__signupForm {
     text-align: center;
-    font-family: billabong;
+    font-family: "billabong";
 }
 
 .signin__form {
