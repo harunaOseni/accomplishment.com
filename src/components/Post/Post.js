@@ -79,24 +79,21 @@ function Post({ profilePicture, username, caption, post, postId }) {
       </div>
 
       <div className="comment__container">
-        {
-          open ? 
-          (
-            <button
-          className="commentCollapse__button"
-          onClick={handleToggleComment}
-        >
-          Hide Comments
-        </button>
-          ) : (
-            <button
-          className="commentCollapse__button"
-          onClick={handleToggleComment}
-        >
-         comments
-        </button>
-          )
-        }
+        {open ? (
+          <button
+            className="commentCollapse__button"
+            onClick={handleToggleComment}
+          >
+            Hide Comments
+          </button>
+        ) : (
+          <button
+            className="commentCollapse__button"
+            onClick={handleToggleComment}
+          >
+            comments
+          </button>
+        )}
 
         {open ? (
           <div className="comment__section">
@@ -107,7 +104,7 @@ function Post({ profilePicture, username, caption, post, postId }) {
             ))}
           </div>
         ) : (
-          <h4>Click the button above to show comment.</h4>
+          ""
         )}
       </div>
 

@@ -7,3 +7,9 @@
     display: flex;
     justify-content: center;    
 }
+
+@media (max-width: 768px) {
+    .app__body {
+        padding: 5px;
+    }
+}
