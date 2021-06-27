@@ -11,7 +11,7 @@ import { PostUploader } from "../../components";
 function getModalStyle() {
   const top = 50;
   const left = 50;
-
+  
   return {
     top: `${top}%`,
     left: `${left}%`,
@@ -22,11 +22,12 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: 400,
+    width: "50%",
     backgroundColor: "#E2703A",
     border: "2px solid #9C3D54 ",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    
   },
 }));
 

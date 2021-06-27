@@ -120,7 +120,7 @@ function Post({ profilePicture, username, caption, post, postId }) {
 
         <button
           className="comment__button"
-          disable={!comment}
+          disabled={!comment && !currentlySignedInUser}
           type="submit"
           onClick={handlePostComment}
         >
