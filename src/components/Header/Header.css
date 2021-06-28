@@ -8,17 +8,37 @@
   z-index: 20;
 }
 
+@media (max-width: 680px) {
+  .header {
+    display: grid;
+  }
+}
+
 .app__logo {
   flex: 1;
-  font-family: "billabong";
-  font-size: medium;
+  font-family: sans-serif;
+  font-size: 10px;
   font-weight: 600;
+}
+
+.add__postButton {
+  display: flex;
+  align-items: center;
 }
 
 .register__button {
   display: flex;
   flex-direction: row;
   cursor: pointer;
+}
+
+.register__button > Button {
+  background-color: #9c3d5557;
+  margin-right: 3px;
+}
+
+.register__button > Button:hover {
+  background-color: #9c3d5582 ;
 }
 
 .signup__form {
@@ -28,11 +48,11 @@
 
 .logo__signupForm {
   text-align: center;
-  font-family: "billabong";
+  font-family: sans-serif;
+  font-size: 20px;
 }
 
 .signin__form {
   display: flex;
   flex-direction: column;
 }
-

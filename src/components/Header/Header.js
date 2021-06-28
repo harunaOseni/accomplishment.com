@@ -11,7 +11,7 @@ import { PostUploader } from "../../components";
 function getModalStyle() {
   const top = 50;
   const left = 50;
-  
+
   return {
     top: `${top}%`,
     left: `${left}%`,
@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #9C3D54 ",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    
   },
 }));
 
@@ -150,9 +149,9 @@ function Header() {
             <IconButton onClick={handleOpenUploaderModal}>
               <AddAPhotoIcon />
             </IconButton>
-          </div>
-          <div className="register__button" onClick={handleSignOut}>
-            LOG OUT
+            <div className="register__button" onClick={handleSignOut}>
+              <Button> LOG OUT </Button>
+            </div>
           </div>
         </>
       ) : (
