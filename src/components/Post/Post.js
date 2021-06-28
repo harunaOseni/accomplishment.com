@@ -111,7 +111,7 @@ function Post({ profilePicture, username, caption, post, postId }) {
       <form className="comment__postSection">
         <input
           type="text"
-          placeholder={`Add a comment...`}
+          placeholder={`comment to show support...`}
           disable={!currentlySignedInUser}
           value={comment}
           onChange={handleComment}
