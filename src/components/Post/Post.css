@@ -39,6 +39,12 @@
   display: flex;
 }
 
+@media (max-width: 650px) {
+  .comment__postSection > button {
+    display: none;
+  }
+}
+
 .comment__input {
   flex: 1;
   outline-width: 0;

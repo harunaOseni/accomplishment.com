@@ -84,14 +84,14 @@ function Post({ profilePicture, username, caption, post, postId }) {
             className="commentCollapse__button"
             onClick={handleToggleComment}
           >
-            Hide Comments
+            Hide Support
           </button>
         ) : (
           <button
             className="commentCollapse__button"
             onClick={handleToggleComment}
           >
-            comments
+            Show Support
           </button>
         )}
 

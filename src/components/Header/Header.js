@@ -170,7 +170,7 @@ function Header() {
             <h1 className="logo__signupForm">Accomplishment.com</h1>
             <Input
               type="text"
-              placeholder="Enter your profile picture imageUrl"
+              placeholder="Enter your profile imageUrl"
               value={profilePicture}
               onChange={handleUsersProfilePicture}
             />
