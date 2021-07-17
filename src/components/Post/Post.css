@@ -15,6 +15,7 @@
 .post__image > img {
   width: 100%;
   object-fit: contain;
+  height: 50vh;
 }
 
 .post__top {

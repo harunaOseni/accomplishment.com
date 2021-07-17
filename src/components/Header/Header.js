@@ -6,7 +6,8 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { auth, db } from "../../firebase";
 import { useEffect } from "react";
-import { PostUploader } from "../../components";
+import { PostUploader, VideoPostUploader } from "../../components";
+import MovieIcon from "@material-ui/icons/Movie";
 
 function getModalStyle() {
   const top = 50;
@@ -41,6 +42,7 @@ function Header() {
   const [profilePicture, setProfilePicture] = useState("");
   const [currentlySignedInUser, setCurrentlySignedInUser] = useState(null);
   const [openUploader, setOpenUploader] = useState(false);
+  const [openVideoUploader, setVideoUploader] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
@@ -52,6 +54,14 @@ function Header() {
       }
     });
   });
+
+  function handleOpenVideoUploader(){
+    setVideoUploader(true);
+  }
+
+  function handleCloseVideoUploader(){
+    setVideoUploader(false);
+  }
 
   function handleOpenUploaderModal() {
     setOpenUploader(true);
@@ -146,6 +156,9 @@ function Header() {
       {currentlySignedInUser ? (
         <>
           <div className="add__postButton">
+            <IconButton onClick={handleOpenVideoUploader}>
+              <MovieIcon />
+            </IconButton>
             <IconButton onClick={handleOpenUploaderModal}>
               <AddAPhotoIcon />
             </IconButton>
@@ -221,6 +234,10 @@ function Header() {
           currentlySignedInUser={currentlySignedInUser}
           closeUploaderModal={handleCloseUploaderModal}
         />
+      </Modal>
+
+      <Modal open={openVideoUploader} onClose={handleCloseVideoUploader}>
+        <VideoPostUploader currentlySignedInUser={currentlySignedInUser}  openModal={handleOpenVideoUploader} closeModal={handleCloseVideoUploader}/>
       </Modal>
     </div>
   );

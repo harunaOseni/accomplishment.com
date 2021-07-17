@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
+import ReactPlayer from "react-player/lazy";
 import "./Post.css";
 import { auth, db } from "../../firebase";
 import firebase from "firebase";
@@ -9,6 +10,7 @@ function Post({ profilePicture, username, caption, post, postId }) {
   const [comment, setComment] = useState();
   const [currentlySignedInUser, setCurrentlySignedInUser] = useState(null);
   const [open, setOpen] = useState(false);
+  const mp4 = "mp4";
 
   function handleToggleComment() {
     !open ? setOpen(true) : setOpen(false);
@@ -68,7 +70,20 @@ function Post({ profilePicture, username, caption, post, postId }) {
       </div>
 
       <div className="post__image">
-        <img src={post} alt="" />
+        {post.includes(mp4) ? (
+          <ReactPlayer
+            id="myVedio"
+            url={post}
+            width="100%"
+            playing={true}
+            controls={true}
+            volume={1}
+            progressInterval={5000}
+            pip={true}
+          />
+        ) : (
+          <img src={post} alt="" />
+        )}
       </div>
 
       <div className="post__caption">
@@ -108,8 +123,8 @@ function Post({ profilePicture, username, caption, post, postId }) {
         )}
       </div>
 
-      <form className="comment__postSection">
-        <input
+      <form className="comment__postSection" onSubmit={handlePostComment}>
+        <input 
           type="text"
           placeholder={`comment to show support...`}
           disable={!currentlySignedInUser}
